@@ -6,42 +6,37 @@
 
 {% block content %}
 <div class="container mt-5">
-<form action="/map_update/{{map.map_id}}" method="POST" autocomplete="off">
+<form action="/ecfp_update/{{ecfp.ecfp_id}}" method="POST" autocomplete="off">
     <h3>UPDATE DATA</h3>
 
     {% csrf_token %}
     <div>
-        <p>Mercury Compound</p>
+        <p>Energy Consumption/Fuel Production</p>
         <div>
-            <input type="text" name="mercury_compound" value="{{map.mercury_compound}}" >
+            <input type="text" name="energy_fuel" value="{{ecfp.energy_fuel}}" >
         </div>
     </div>
 
     <div>
-        <p>Item</p>
-        <div>
-            <input type="text" name="item" value="{{map.item}}" >
-        </div>
-    </div>
 
     <div>
         <p>Produced/Imported</p>
         <div>
-            <input type="text" name="imported" value="{{map.imported}}" >
+            <input type="text" name="imported" value="{{ecfp.imported}}" >
         </div>
     </div>
 
     <div>
         <p>Annual Consumption / Production</p>
         <div>
-            <input type="text" name="consumption_or_production" value="{{map.consumption_or_production}}" >
+            <input type="text" name="consumption_or_production" value="{{ecfp.consumption_or_production}}" >
         </div>
     </div>
 
     <div>
         <p>Year</p>
         <div>
-            <input type="date" name="year" value="{{map.year}}" >
+            <input type="date" name="year" value="{{ecfp.year}}" >
         </div>
     </div>
 

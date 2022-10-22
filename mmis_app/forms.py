@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import SelectDateWidget
 
-from .models import User, MercuryAddedProducts, ContactInformation
+from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, ContactInformation
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -59,5 +59,31 @@ class MapForm(forms.ModelForm):
                                                    ] + list(self.fields['mercury_compound'].choices)[0:]
         self.fields['item'].required = True
         self.fields['mercury_compound'].required = True
+        self.fields['consumption_or_production'].required = True
+        self.fields['year'].required = True
+
+
+class EnergyFuelForm(forms.ModelForm):
+    class Meta:
+        model = EnergyConsumptionAndFuelProduction
+        fields = ('energy_fuel', 'imported', 'consumption_or_production', 'year', )
+        labels = {
+            'energy_fuel': 'Energy Consumption/Fuel Production',
+            'imported': 'Produced/Imported',
+            'consumption_or_production': 'Annual Consumption / Production',
+            'year': 'Year'
+        }
+        widgets = {
+        'imported': forms.TextInput({'placeholder': 'If imported state the country of import'}),
+        'consumption_or_production': forms.TextInput({'placeholder': 't/y'}),
+        'year': forms.TextInput({'placeholder': 'yyyy-mm-dd'}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(EnergyFuelForm, self).__init__(*args, **kwargs)
+        self.fields['energy_fuel'].choices = [("", "select category"),
+                                                   ] + list(self.fields['energy_fuel'].choices)[0:]
+        self.fields['energy_fuel'].required = True
         self.fields['consumption_or_production'].required = True
         self.fields['year'].required = True

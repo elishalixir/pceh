@@ -1,7 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
-from .forms import NewRegistration, MapForm, LoginForm
-from .models import MercuryAddedProducts
+from .forms import NewRegistration, MapForm, LoginForm, EnergyFuelForm
+from .models import MercuryAddedProducts, EnergyConsumptionAndFuelProduction
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -127,3 +127,45 @@ def cement_sector(request):
 @login_required(login_url='/login')
 def energy_fuel(request):
     pass
+
+def ecfp_read(request):
+    context = {'ecfp_read':EnergyConsumptionAndFuelProduction.objects.all()}
+    return render(request, 'mmis_app/energyfuel/ecfp_read.html', context)
+
+
+# CREATE/UPDATE
+def ecfp_create(request):
+    if request.method == 'POST':
+        form = EnergyFuelForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/ecfp_read')
+            except:
+                pass
+    else:
+        form = EnergyFuelForm()
+    return render(request, "mmis_app/energyfuel/ecfp_create.html", {'form': form})
+
+#EDIT
+def ecfp_edit(request, ecfp_id):
+    ecfp = EnergyConsumptionAndFuelProduction.objects.get(ecfp_id=ecfp_id)
+    return render(request, "mmis_app/energyfuel/ecfp_edit.html", {'ecfp': ecfp})
+
+def ecfp_update(request, ecfp_id):
+    ecfp = EnergyConsumptionAndFuelProduction.objects.get(ecfp_id=ecfp_id)
+    form = EnergyFuelForm(request.POST, instance=ecfp)
+    if form.is_valid():
+        try:
+            form.save()
+            print(form.errors)
+            return redirect('/ecfp_read')
+        except:
+            pass
+    return render(request, "mmis_app/energyfuel/ecfp_edit.html", {'form': form})
+
+# DELETE
+def ecfp_delete(request, ecfp_id):
+    ecfp = EnergyConsumptionAndFuelProduction.objects.get(ecfp_id=ecfp_id)
+    ecfp.delete()
+    return redirect('/ecfp_read')

@@ -1,7 +1,98 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #CFD8DC!important;
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 10px auto;
+  font-family: fontawesome;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: fontawesome;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+#add-data-btn{
+    margin-bottom: 1rem;
+}
+button {
+  background-color: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: fontawesome;
+  cursor: pointer;
+
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+#deptHead{
+text-align: center;
+}
+.logo{
+text-align: center;
+padding-top: 25px;
+padding-bottom: none
+}
+
+
+<!--Nav-bar starts here-->
 body {
     position: relative;
     overflow-x: hidden;
-    background-color: #CFD8DC;
+    background-color: #CFD8DC!important;
 }
 body,
 html { height: 100%;}
@@ -41,6 +132,7 @@ html { height: 100%;}
 
 #wrapper.toggled #sidebar-wrapper {
     width: 220px;
+    padding: .5rem 1rem;
 }
 
 #page-content-wrapper {
@@ -53,7 +145,7 @@ html { height: 100%;}
     margin-right: -220px;
 }
 .navbar {
-  padding: 0;
+  padding: 0!important;
 }
 
 .sidebar-nav {
@@ -180,11 +272,6 @@ html { height: 100%;}
     display: inline-block;
     padding-right: 5px;
 }
-span{
-color: #009D58
-
-}
-
 a[href*="#home"]::before {
   content: "\f015" !important;
 }
@@ -349,7 +436,5 @@ a[href*="#followme"]::before {
     background-color: #deb9b9cc;
     z-index: 1;
 }
-.logo{
-    text-align: center;
-}
+
 }

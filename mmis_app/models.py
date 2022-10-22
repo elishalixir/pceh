@@ -71,12 +71,63 @@ class MercuryAddedProducts(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class MercurySupplySource(models.Model):
-    pass
+class EnergyConsumptionAndFuelProduction(models.Model):
+
+    energy_fuel_Choice=(
+
+        ('Coal Combustion in Large Power Plants', 'Coal Combustion in Large Power Plants'),
+        ('Other Coal Uses', 'Other Coal Uses'),
+        ('Combustion/Use of Petroleum Coke and Heavy Oil', 'Combustion/Use of Petroleum Coke and Heavy Oil'),
+        ('Use of Raw or Pre-cleaned Natural Gas', 'Use of Raw or Pre-cleaned Natural Gas'),
+        ('Use of Pipeline Gas (Consumer quality)', 'Use of Pipeline Gas (Consumer quality)'),
+        ('Biomass Fired Power & Heat Production', 'Biomass Fired Power & Heat Production'),
+        ('Charcoal Combustion', 'Charcoal Combustion'),
+        ('Oil Extraction', 'Oil Extraction'),
+        ('Oil Refining', 'Oil Refining'),
+        ('Extraction & Processing of Natural Gas', 'Extraction & Processing of Natural Gas'),
+    )
+
+    ecfp_id = models.IntegerField(primary_key=True)
+    energy_fuel = models.CharField(max_length=300, null=True, choices=energy_fuel_Choice, default='')
+    imported = models.CharField(max_length=200, default='')
+    consumption_or_production = models.CharField(max_length=200, default='')
+    year = models.DateField(max_length=4, default='')
+    note = models.TextField(max_length=200, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Waste(models.Model):
-    pass
+# class Cement(models.Model):
+#     yes_choices = (
+#         ('Yes', 'Yes'),
+#         ('No', 'No'),
+#     )
+#     operation_cover_Choice = (
+#
+#         ('Cement Production', 'Cement Production'),
+#         ('Cement Production/without Co-incineration of Waste', 'Cement Production/without Co-incineration of Waste'),
+#         ('With no filters', 'With no filters'),
+#         ('With filters and no filter dust recycling: Simple particle control (ESP / PS / FF)\
+# Optimized particle control (FF+SNCR / FF+WS / ESP+FGD / optimized FF)', 'With filters an no filter dust recycling: Simple particle control (ESP / PS / FF)\
+# Optimized particle control (FF+SNCR / FF+WS / ESP+FGD / optimized FF)'),
+#         ('With filters and filter dust recycling *2:\
+# Simple particle control (ESP / PS / FF) Optimized particle control (FF+SNCR / FF+WS / ESP+FGD / optimized FF)\
+# ', 'With filters and filter dust recycling *2:\
+# Simple particle control (ESP / PS / FF) Optimized particle control (FF+SNCR / FF+WS / ESP+FGD / optimized FF)\
+# '),
+#         ('Production of Lime', 'Production of Lime'),
+#         ('Production of lime and lightweight aggregates', 'Production of lime and lightweight aggregates'),
+#         ('Production of light weight aggregate using kiln', 'Production of light weight aggregate using kiln'),
+#         ('Other minerals and materials', 'Other minerals and materials')
+#
+#     )
+#
+#     cem_id = models.IntegerField(primary_key=True)
+#     operation_cover = models.CharField(max_length=300, null=True, choices=operation_cover_Choice, default='')
+#     yes = models.CharField(max_length=3, null=True, choices=yes_choices, default='')
+#     consumption_or_production = models.CharField(max_length=200, default='')
+#     year = models.DateField(max_length=4, default='')
+#     note = models.TextField(max_length=200, default='')
+#     created_at = models.DateTimeField(auto_now_add=True)
 
 
 class EnvironmentAndHealth(models.Model):
@@ -87,12 +138,6 @@ class ASGMining(models.Model):
     pass
 
 
-class Cement(models.Model):
+class Waste(models.Model):
     pass
-
-
-class EnergyConsumptionAndFuelProduction(models.Model):
-    pass
-
-
 

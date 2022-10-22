@@ -1,5 +1,4 @@
 {% extends 'mmis_app/base2.html' %}
-
     {% block title %} Environment & Health {% endblock %}
 
 {% load crispy_forms_tags %}
@@ -8,7 +7,7 @@
 <div class="container mt-5">
     <h5 class="card p-2 bg-warning text-center mb-3">DOMESTIC PRODUCTION, PROCESSING AND IMPORT
         OF PRODUCTS WITH INTENTIONAL MERCURY USE</h5>
-<button><a style="color: white;" href="/map_create/" target="_blank">Add Data</a></button>
+<button id="add-data-btn"><a style="color: white;" href="/map_create/" target="_blank">Add Data</a></button>
 <table class="table table-bordered table-hover dt-responsive " style="text-align: center;">
         <thead class="table-success">
           <tr>
@@ -43,7 +42,8 @@
               <td colspan="6" style="color: #ff7f7f;">No records found   </td>
           </tr>
     {% endfor %}
-
+        </tbody>
+</table>
 </div>
-{%  endblock content%}
+{%  endblock content %}
 
