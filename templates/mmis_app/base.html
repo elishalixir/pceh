@@ -1,21 +1,12 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<html lang = "en">
+   <head>
+     <title> {% block title %} {% endblock %}</title>
+      <meta charset = "utf-8">
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1, shrink-to-fit = no">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-            <!--css local link-->
-
-    <!--end css-->
-
-
-    <title>{% block title %} {% endblock title %}</title>
-    <style> body {
+<style>
+body {
     position: relative;
     overflow-x: hidden;
     background-color: #CFD8DC;
@@ -54,6 +45,10 @@ html { height: 100%;}
 
 #sidebar-wrapper::-webkit-scrollbar {
   display: none;
+}
+span{
+color: #009D58
+
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -171,7 +166,7 @@ html { height: 100%;}
     text-decoration: none;
 }
 .dropdown-header {
-    text-align: center;
+    text-align: left;
     font-size: 1em;
     color: #ddd;
     background:#212531;
@@ -197,11 +192,6 @@ html { height: 100%;}
     display: inline-block;
     padding-right: 5px;
 }
-span{
-color: #009D58
-
-}
-
 a[href*="#home"]::before {
   content: "\f015" !important;
 }
@@ -369,30 +359,94 @@ a[href*="#followme"]::before {
 .logo{
     text-align: center;
 }
-}</style>
-</head>
-
+}
+</style>
+   </head>
 <body>
+<div id="wrapper">
+   <div class="overlay"></div>
+
+<!--    The horizontal nav starts here-->
+
+    <nav class="navbar  navbar-expand-lg navbar navbar-dark " style="background-color: #2d4f3e;" >
+{% if user.is_authenticated %}
+        <div><a id="logout" class="nav-item nav-link" href="/logout">Logout</a></div>
+        <li><a href="{% url 'welcome' %}"> </a></li>
+
+  <a class="navbar-brand" href="{% url 'welcome' %}"> Hello | {{ user}}!</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+        {% elif user.is_authenticated and user.is_cement %}
+      <a class="nav-item nav-link" href="{% url 'cem_read' %}">Cement Sector |</a>
+        {% elif user.is_health %}
+      <a class="nav-item nav-link" href="{% url '#' %}">Environment and Health |</a>
+        {% elif user.is_EandF %}
+              <a class="nav-item nav-link" href="{% url 'ecfp_read' %}"> Energy Consumption and Fuel Production |</a>
+        {% elif user.is_map %}
+      <a class="nav-item nav-link" href="{% url 'map_read' %}"> Mercury Added Products |</a>
+         {% elif user.is_waste %}
+              <a class="nav-item nav-link" href="#Waste">Waste |</a>
+        {% elif user.is_asgm %}
+      <a class="nav-item nav-link" href="{% url 'Asgm' %}">ASGM |</a>
+
+        {% else %}
+
+
+        {% endif %}
+
+
+    </div>
+
+  </div>
+</nav>
+
+<!--    The horizontal nav ends here-->
         <div id="page-content-wrapper">
+<!--            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">-->
+<!--                <span class="hamb-top"></span>-->
+<!--                <span class="hamb-middle"></span>-->
+<!--                <span class="hamb-bottom"></span>-->
+<!--            </button>-->
+<!--            end of copy to base3-->
             <div class="container">
                 <div class="logo">
                 <img src="https://logos-download.com/wp-content/uploads/2021/07/Coat_of_arms_of_Nigeria.svg" width="120px" height="100px">
-                    </div>
+
+                </div>
                 <div class="row">
                     <div class="col-lg-8 col-lg-12">
-                        <div class="row d-flex justify-content-center text-center">
-                        <h1> Mercury Management Information System </h1>
-                        <h3>Department of Pollution and Environmental Health</h3>
-                        </div>
-                        <p> {%  block content%} {% endblock content %} </p>
+                       <div class="row d-flex justify-content-center text-center">
+                           <h1> FEDERAL MINISTRY OF ENVIRONMENT </h1>
+                           <h1> Mercury Management Information System </h1>
+                       <h4>Department of Pollution and Environmental Health</h4>
+                       </div>
+                        <p> {%  block content%} {% endblock content%} </p>
                      </div>
+                </div>
+                <div>
+                    {%  if user.is_cement %}
+                    <center><a href="{% url 'cem_read' %}"><button type="button" class="btn btn-success">Cement</button></a></center>
+                   {%  elif user.is_health %}
+                    <center><a href="{% url '#' %}"><button type="button" class="btn btn-success">Health</button></a></center>
+                    {% elif user.is_EandF %}
+                    <center><a href="{% url 'ecfp_read' %}"><button type="button" class="btn btn-success">Energy and Fuel</button></a></center>
+                    {% elif user.is_map %}
+                    <center><a href="{% url 'map_read' %}"><button type="button" class="btn btn-success">Mercury Products</button></a></center>
+                    {% elif user.is_Waste %}
+                    <center><a href="{% url '#Waste' %}"><button type="button" class="btn btn-success">Waste</button></a></center>
+                    {% elif user.is_asgm %}
+                    <center><a href="{% url '#' %}"><button type="button" class="btn btn-success">Asgm </button></a></center>
+                   {% else %}
+
+               {% endif %}
                 </div>
             </div>
         </div>
-
-        <!-- Footer -->
-
-<!-- Footer -->
+    </div>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"> </script>
     <script>
     $(document).ready(function () {
@@ -421,13 +475,4 @@ a[href*="#followme"]::before {
 });
     </script>
 </body>
-
 </html>
-
-<!--<footer class="page-footer font-small black">-->
-<!--  &lt;!&ndash; Copyright &ndash;&gt;-->
-<!--  <div class="footer-copyright text-center py-3">&copy; {% now "Y" %} Copyright:-->
-<!--    <a href="http://skaylasempire.com/" target="_blank"> Federal Ministry of Environment</a>-->
-<!--  </div>-->
-<!--  &lt;!&ndash; Copyright &ndash;&gt;-->
-<!--</footer>-->

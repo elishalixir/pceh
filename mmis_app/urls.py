@@ -4,11 +4,12 @@ from . import views
 urlpatterns = [
 
     path('', views.home, name='home'),
+    path('sign_up/', views.sign_up, name='sign_up'),
+    path('login/', views.login_view, name='login_view'),
     path('welcome/', views.welcome, name='welcome'),
     path('feedback/', views.feedback, name='feedback'),
     path('contact/', views.contact, name='contact'),
     path('health/', views.health, name='health'),
-    path('cement/', views.cement_sector, name='cement'),
     #Create - MAP
     path('map_create/', views.map_create, name='map_create'),
     #Read - MAP
@@ -21,7 +22,6 @@ urlpatterns = [
     path('map_delete/<int:map_id>', views.map_delete, name='map_delete'),
 
 # Energy consumption and fuel production
-    path('energy/', views.energy_fuel, name='energy'),
     # Create - energyfuel
     path('ecfp_create/', views.ecfp_create, name='ecfp_create'),
     # Read - energyfuel
@@ -32,8 +32,20 @@ urlpatterns = [
     path('ecfp_update/<int:ecfp_id>', views.ecfp_update, name='ecfp_update'),
     # Delete - energyfuel
     path('ecfp_delete/<int:ecfp_id>', views.ecfp_delete, name='ecfp_delete'),
+    #cement
+    # path('cement/', views.cement_sector, name='cement'),
+    # Create - cement
+    path('cem_create/', views.cem_create, name='cem_create'),
+    # Read - cement
+    path('cem_read/', views.cem_read, name='cem_read'),
+    # Update - cement
+    path('cem_edit/<int:cem_id>', views.cem_edit, name='cem_edit'),
+    # Update - cement
+    path('cem_update/<int:cem_id>', views.cem_update, name='cem_update'),
+    # Delete - cement
+    path('cem_delete/<int:cem_id>', views.cem_delete, name='cem_delete'),
+
     path('Asgm/', views.Asgm, name='Asgm'),
-    path('sign_up/', views.sign_up, name='sign_up'),
-    path('login/', views.login_view, name='login_view'),
+
 
 ]

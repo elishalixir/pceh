@@ -31,24 +31,28 @@
 
 
                 </div> </div>
-
+ {% if user.is_authenticated and user.is_cement %}
             <li><a href="#">Cement Sector</a></li>
 
-
+{% elif user.is_health %}
             <li><a href="#">Environment and Health</a></li>
-
+ {% elif user.is_EandF %}
             <li><a href="#"> Energy Consumption and Fuel Production </a> </li>
-
+  {% elif user.is_map %}
             <li><a href="#"> Mercury Added Products </a> </li>
-
+{% elif user.is_waste %}
             <li><a href="#">Waste</a></li>
-
+  {% elif user.is_asgm %}
             <li><a href="#">ASGM</a></li>
-            <li><a href="#followme">Follow Us</a></li>
+                    {% else %}
 
-        </ul>
 
-        <a id="logout" class="nav-item nav-link" href="/logout">Logout</a>
+        {% endif %}
+
+           <li><a href="#followme">Follow Us</a></li>
+
+         <li> <a id="logout" class="nav-item nav-link" href="/logout">Logout</a> </li>
+            </ul>
     </nav>
 
     <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">

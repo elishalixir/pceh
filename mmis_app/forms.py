@@ -1,7 +1,5 @@
 from django import forms
-from django.forms import SelectDateWidget
-
-from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, ContactInformation
+from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -31,13 +29,14 @@ class NewRegistration(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2',
-                  'sector', 'gender', 'role')
+                  'is_admin', 'is_cement', 'is_health',
+                  'is_waste', 'is_asgm', 'is_map', 'is_EandF')
 
 
 class MapForm(forms.ModelForm):
     class Meta:
         model = MercuryAddedProducts
-        fields = ('mercury_compound', 'item', 'imported', 'consumption_or_production', 'year', )
+        fields = ('mercury_compound', 'item', 'imported', 'consumption_or_production', 'year',)
         labels = {
             'mercury_compound': 'Mercury Compound',
             'item': 'Item',
@@ -46,10 +45,10 @@ class MapForm(forms.ModelForm):
             'year': 'Year'
         }
         widgets = {
-        'item': forms.TextInput({'placeholder': 'Mercury containing product/item'}),
-        'imported': forms.TextInput({'placeholder': 'If imported state the country of import'}),
-        'consumption_or_production': forms.TextInput({'placeholder': 't/y'}),
-        'year': forms.TextInput({'placeholder': 'yyyy-mm-dd'}),
+            'item': forms.TextInput({'placeholder': 'Mercury containing product/item'}),
+            'imported': forms.TextInput({'placeholder': 'If imported state the country of import'}),
+            'consumption_or_production': forms.TextInput({'placeholder': 't/y'}),
+            'year': forms.TextInput({'placeholder': 'yyyy-mm-dd'}),
 
         }
 
@@ -66,7 +65,7 @@ class MapForm(forms.ModelForm):
 class EnergyFuelForm(forms.ModelForm):
     class Meta:
         model = EnergyConsumptionAndFuelProduction
-        fields = ('energy_fuel', 'imported', 'consumption_or_production', 'year', )
+        fields = ('energy_fuel', 'imported', 'consumption_or_production', 'year',)
         labels = {
             'energy_fuel': 'Energy Consumption/Fuel Production',
             'imported': 'Produced/Imported',
@@ -74,16 +73,42 @@ class EnergyFuelForm(forms.ModelForm):
             'year': 'Year'
         }
         widgets = {
-        'imported': forms.TextInput({'placeholder': 'If imported state the country of import'}),
-        'consumption_or_production': forms.TextInput({'placeholder': 't/y'}),
-        'year': forms.TextInput({'placeholder': 'yyyy-mm-dd'}),
+            'imported': forms.TextInput({'placeholder': 'If imported state the country of import'}),
+            'consumption_or_production': forms.TextInput({'placeholder': 't/y'}),
+            'year': forms.TextInput({'placeholder': 'yyyy-mm-dd'}),
 
         }
 
     def __init__(self, *args, **kwargs):
         super(EnergyFuelForm, self).__init__(*args, **kwargs)
         self.fields['energy_fuel'].choices = [("", "select category"),
-                                                   ] + list(self.fields['energy_fuel'].choices)[0:]
+                                              ] + list(self.fields['energy_fuel'].choices)[0:]
         self.fields['energy_fuel'].required = True
+        self.fields['consumption_or_production'].required = True
+        self.fields['year'].required = True
+
+
+class CementForm(forms.ModelForm):
+    class Meta:
+        model = Cement
+        fields = ('operation_cover', 'yes', 'consumption_or_production', 'year',)
+        labels = {
+            'operation_cover': 'Choose Activities Covered By Operations',
+            'yes': 'Choose',
+            'consumption_or_production': 'Annual Consumption / Production',
+            'year': 'Year'
+        }
+        widgets = {
+            'consumption_or_production': forms.TextInput({'placeholder': 't/y'}),
+            'year': forms.TextInput({'placeholder': 'yyyy-mm-dd'}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CementForm, self).__init__(*args, **kwargs)
+        self.fields['operation_cover'].choices = [("", "Choose Activities Covered By Operations"),
+                                                  ] + list(self.fields['operation_cover'].choices)[0:]
+        self.fields['operation_cover'].required = True
+        self.fields['yes'].required = True
         self.fields['consumption_or_production'].required = True
         self.fields['year'].required = True
