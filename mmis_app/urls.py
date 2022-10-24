@@ -9,7 +9,7 @@ urlpatterns = [
     path('welcome/', views.welcome, name='welcome'),
     path('feedback/', views.feedback, name='feedback'),
     path('contact/', views.contact, name='contact'),
-    path('health/', views.health, name='health'),
+
     #Create - MAP
     path('map_create/', views.map_create, name='map_create'),
     #Read - MAP
@@ -38,14 +38,38 @@ urlpatterns = [
     path('cem_create/', views.cem_create, name='cem_create'),
     # Read - cement
     path('cem_read/', views.cem_read, name='cem_read'),
-    # Update - cement
+    # Edit - cement
     path('cem_edit/<int:cem_id>', views.cem_edit, name='cem_edit'),
     # Update - cement
     path('cem_update/<int:cem_id>', views.cem_update, name='cem_update'),
     # Delete - cement
     path('cem_delete/<int:cem_id>', views.cem_delete, name='cem_delete'),
 
-    path('Asgm/', views.Asgm, name='Asgm'),
+    # Environment and Health
+    # path('health/', views.health, name='health'),
+    # Create - eAndH
+    path('eAndH_create/', views.eAndH_create, name='eAndH_create'),
+    # Read - eAndH
+    path('eAndH_read/', views.eAndH_read, name='eAndH_read'),
+    # Edit - cement
+    path('eAndH_edit/<int:eAndH_id>', views.eAndH_edit, name='eAndH_edit'),
+    # Update - cement
+    path('eAndH_update/<int:eAndH_id>', views.eAndH_update, name='eAndH_update'),
+    # Delete - cement
+    path('eAndH_delete/<int:eAndH_id>', views.eAndH_delete, name='eAndH_delete'),
+
+    #ASG MINING
+    # path('Asgm/', views.Asgm, name='Asgm'),
+    # Create - asgm
+    path('asgm_create/', views.asgm_create, name='asgm_create'),
+    # Read - asgm
+    path('asgm_read/', views.asgm_read, name='asgm_read'),
+    # Edit - asgm
+    path('asgm_edit/<int:asgm_id>', views.asgm_edit, name='asgm_edit'),
+    # Update - asgm
+    path('asgm_update/<int:asgm_id>', views.asgm_update, name='asgm_update'),
+    # Delete - asgm
+    path('asgm_delete/<int:asgm_id>', views.asgm_delete, name='asgm_delete'),
 
 
 ]

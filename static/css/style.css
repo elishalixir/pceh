@@ -39,6 +39,7 @@ input.invalid {
 #add-data-btn{
     margin-bottom: 1rem;
 }
+
 button {
   background-color: #04AA6D;
   color: #ffffff;
@@ -436,5 +437,14 @@ a[href*="#followme"]::before {
     background-color: #deb9b9cc;
     z-index: 1;
 }
-
+#success {
+    color: yellow!important;
+}
+footer{
+background: darkgreen;
+}
+footer a{
+color: yellow;
+text-decoration: underline;
+}
 }

@@ -1,7 +1,9 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
-from .forms import NewRegistration, MapForm, LoginForm, EnergyFuelForm, CementForm
-from .models import MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement
+from .forms import NewRegistration, MapForm, LoginForm, EnergyFuelForm, CementForm, EnvironmentAndHealthForm,\
+    ASGMiningForm
+from .models import MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement, EnvironmentAndHealth,\
+    ASGMining
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -68,7 +70,7 @@ def welcome(request):
 # READ
 @login_required(login_url='/login')
 def map_read(request):
-    context = {'map_read':MercuryAddedProducts.objects.all()}
+    context = {'map_read': MercuryAddedProducts.objects.all()}
     return render(request, 'mmis_app/map/map_read.html', context)
 
 
@@ -89,7 +91,8 @@ def map_create(request):
         form = MapForm()
     return render(request, "mmis_app/map/map_create.html", {'form': form})
 
-#EDIT
+
+# EDIT
 @login_required(login_url='/login')
 def map_edit(request, map_id):
     map = MercuryAddedProducts.objects.get(map_id=map_id)
@@ -153,7 +156,7 @@ def energy_fuel(request):
 
 @login_required(login_url='/login')
 def ecfp_read(request):
-    context = {'ecfp_read':EnergyConsumptionAndFuelProduction.objects.all()}
+    context = {'ecfp_read': EnergyConsumptionAndFuelProduction.objects.all()}
     return render(request, 'mmis_app/energyfuel/ecfp_read.html', context)
 
 
@@ -167,14 +170,15 @@ def ecfp_create(request):
                 temporal = form.save(commit=False)
                 temporal.author = request.user
                 temporal.save()
-                return redirect('/ecfp_read')
+                return redirect('/feedback')
             except:
                 pass
     else:
         form = EnergyFuelForm()
     return render(request, "mmis_app/energyfuel/ecfp_create.html", {'form': form})
 
-#EDIT
+
+# EDIT
 @login_required(login_url='/login')
 def ecfp_edit(request, ecfp_id):
     ecfp = EnergyConsumptionAndFuelProduction.objects.get(ecfp_id=ecfp_id)
@@ -196,6 +200,7 @@ def ecfp_update(request, ecfp_id):
             pass
     return render(request, "mmis_app/energyfuel/ecfp_edit.html", {'form': form})
 
+
 # DELETE
 @login_required(login_url='/login')
 def ecfp_delete(request, ecfp_id):
@@ -203,7 +208,8 @@ def ecfp_delete(request, ecfp_id):
     ecfp.delete()
     return redirect('/ecfp_read')
 
-#cement
+
+# cement
 @login_required(login_url='/login')
 def cem_read(request):
     context = {'cem_read': Cement.objects.all()}
@@ -227,7 +233,8 @@ def cem_create(request):
         form = CementForm()
     return render(request, "mmis_app/cement/cem_create.html", {'form': form})
 
-#EDIT
+
+# EDIT
 @login_required(login_url='/login')
 def cem_edit(request, cem_id):
     cem = Cement.objects.get(cem_id=cem_id)
@@ -249,9 +256,121 @@ def cem_update(request, cem_id):
             pass
     return render(request, "mmis_app/cement/cem_edit.html", {'form': form})
 
+
 # DELETE
 @login_required(login_url='/login')
 def cem_delete(request, cem_id):
     cem = Cement.objects.get(cem_id=cem_id)
     cem.delete()
     return redirect('/cem_read')
+
+
+# Environment and Health
+# @login_required(login_url='/login')
+def eAndH_read(request):
+    context = {'eAndH_read': EnvironmentAndHealth.objects.all()}
+    return render(request, 'mmis_app/envHealth/eAndH_read.html', context)
+
+
+# CREATE/UPDATE
+# @login_required(login_url='/login')
+def eAndH_create(request):
+    if request.method == 'POST':
+        form = EnvironmentAndHealthForm(request.POST)
+        if form.is_valid():
+            # try:
+            temporal = form.save(commit=False)
+            temporal.author = request.user
+            temporal.save()
+            return redirect('/eAndH_read')
+        # except:
+        #     pass
+    else:
+        form = EnvironmentAndHealthForm()
+    return render(request, "mmis_app/envHealth/eAndH_create.html", {'form': form})
+
+
+# EDIT
+# @login_required(login_url='/login')
+def eAndH_edit(request, eAndH_id):
+    eAndH = EnvironmentAndHealth.objects.get(eAndH_id=eAndH_id)
+    return render(request, "mmis_app/envHealth/eAndH_edit.html", {'eAndH': eAndH})
+
+
+# @login_required(login_url='/login')
+def eAndH_update(request, eAndH_id):
+    eAndH = EnvironmentAndHealth.objects.get(eAndH_id=eAndH_id)
+    form = EnvironmentAndHealthForm(request.POST, instance=eAndH)
+    if form.is_valid():
+        temporal = form.save(commit=False)
+        temporal.author = request.user
+        temporal.save()
+        print(form.errors)
+        return redirect('/eAndH_read')
+    # except:
+    #     pass
+    return render(request, "mmis_app/envHealth/eAndH_edit.html", {'form': form})
+
+
+# DELETE
+# @login_required(login_url='/login')
+def eAndH_delete(request, eAndH_id):
+    eAndH = EnvironmentAndHealth.objects.get(eAndH_id=eAndH_id)
+    eAndH.delete()
+    return redirect('/eAndH_read')
+
+
+# ASG MINING
+# @login_required(login_url='/login')
+def asgm_read(request):
+    context = {'asgm_read': ASGMining.objects.all()}
+    return render(request, 'mmis_app/mining/asgm_read.html', context)
+
+
+# CREATE/UPDATE
+# @login_required(login_url='/login')
+def asgm_create(request):
+    if request.method == 'POST':
+        form = ASGMiningForm(request.POST)
+        if form.is_valid():
+            # try:
+            temporal = form.save(commit=False)
+            temporal.author = request.user
+            temporal.save()
+            return redirect('/asgm_read')
+        # except:
+        #     pass
+    else:
+        form = ASGMiningForm()
+    return render(request, "mmis_app/mining/asgm_create.html", {'form': form})
+
+
+# EDIT
+# @login_required(login_url='/login')
+def asgm_edit(request, asgm_id):
+    asgm = ASGMining.objects.get(asgm_id=asgm_id)
+    return render(request, "mmis_app/mining/asgm_edit.html", {'asgm': asgm})
+
+
+# @login_required(login_url='/login')
+def asgm_update(request, asgm_id):
+    asgm = ASGMining.objects.get(asgm_id=asgm_id)
+    form = ASGMiningForm(request.POST, instance=asgm)
+    if form.is_valid():
+        temporal = form.save(commit=False)
+        temporal.author = request.user
+        temporal.save()
+        print(form.errors)
+        return redirect('/asgm_read')
+    # except:
+    #     pass
+    return render(request, "mmis_app/mining/asgm_edit.html", {'form': form})
+
+
+# DELETE
+# @login_required(login_url='/login')
+def asgm_delete(request, asgm_id):
+    asgm = ASGMining.objects.get(asgm_id=asgm_id)
+    asgm.delete()
+    return redirect('/asgm_read')
+

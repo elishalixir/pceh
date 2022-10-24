@@ -1,5 +1,6 @@
 from django import forms
-from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement
+from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement, EnvironmentAndHealth,\
+    ASGMining
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -112,3 +113,27 @@ class CementForm(forms.ModelForm):
         self.fields['yes'].required = True
         self.fields['consumption_or_production'].required = True
         self.fields['year'].required = True
+
+
+class EnvironmentAndHealthForm(forms.ModelForm):
+    class Meta:
+        model = EnvironmentAndHealth
+        exclude = ('author', 'eAndH_id')
+
+        def __init__(self):
+            self.created_at = None
+
+        def __str__(self):
+            return self.created_at
+
+
+class ASGMiningForm(forms.ModelForm):
+    class Meta:
+        model = ASGMining
+        exclude = ('author', 'asgm_id')
+
+        def __init__(self):
+            self.created_at = None
+
+        def __str__(self):
+            return self.created_at

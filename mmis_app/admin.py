@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement
+from .models import User, MercuryAddedProducts, EnergyConsumptionAndFuelProduction, Cement, EnvironmentAndHealth,\
+    ASGMining
 
 
 # Register your models here.
@@ -37,3 +38,5 @@ admin.site.register(User, UserAdmin)
 admin.site.register(MercuryAddedProducts, MercuryAddedProductsAdmin)
 admin.site.register(EnergyConsumptionAndFuelProduction, EnergyConsumptionAndFuelProductionAdmin)
 admin.site.register(Cement, CementAdmin)
+admin.site.register(EnvironmentAndHealth)
+admin.site.register(ASGMining)

@@ -383,15 +383,15 @@ a[href*="#followme"]::before {
         {% elif user.is_authenticated and user.is_cement %}
       <a class="nav-item nav-link" href="{% url 'cem_read' %}">Cement Sector |</a>
         {% elif user.is_health %}
-      <a class="nav-item nav-link" href="{% url '#' %}">Environment and Health |</a>
+      <a class="nav-item nav-link" href="{% url 'eAndH_read' %}">Environment and Health |</a>
         {% elif user.is_EandF %}
               <a class="nav-item nav-link" href="{% url 'ecfp_read' %}"> Energy Consumption and Fuel Production |</a>
         {% elif user.is_map %}
       <a class="nav-item nav-link" href="{% url 'map_read' %}"> Mercury Added Products |</a>
          {% elif user.is_waste %}
-              <a class="nav-item nav-link" href="#Waste">Waste |</a>
+              <a class="nav-item nav-link" href="waste_read">Waste |</a>
         {% elif user.is_asgm %}
-      <a class="nav-item nav-link" href="{% url 'Asgm' %}">ASGM |</a>
+      <a class="nav-item nav-link" href="{% url 'asgm_read' %}">ASGM |</a>
 
         {% else %}
 
@@ -431,15 +431,15 @@ a[href*="#followme"]::before {
                     {%  if user.is_cement %}
                     <center><a href="{% url 'cem_read' %}"><button type="button" class="btn btn-success">Cement</button></a></center>
                    {%  elif user.is_health %}
-                    <center><a href="{% url '#' %}"><button type="button" class="btn btn-success">Health</button></a></center>
+                    <center><a href="{% url 'eAndH_read' %}"><button type="button" class="btn btn-success">Health</button></a></center>
                     {% elif user.is_EandF %}
                     <center><a href="{% url 'ecfp_read' %}"><button type="button" class="btn btn-success">Energy and Fuel</button></a></center>
                     {% elif user.is_map %}
                     <center><a href="{% url 'map_read' %}"><button type="button" class="btn btn-success">Mercury Products</button></a></center>
                     {% elif user.is_Waste %}
-                    <center><a href="{% url '#Waste' %}"><button type="button" class="btn btn-success">Waste</button></a></center>
+                    <center><a href="{% url 'waste_read' %}"><button type="button" class="btn btn-success">Waste</button></a></center>
                     {% elif user.is_asgm %}
-                    <center><a href="{% url '#' %}"><button type="button" class="btn btn-success">Asgm </button></a></center>
+                    <center><a href="{% url 'asgm_read' %}"><button type="button" class="btn btn-success">Asgm </button></a></center>
                    {% else %}
 
                {% endif %}
